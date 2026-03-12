@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning Hub</title>
+    <title>English Learning Hub 2.0</title>
     <style>
-        /* --- ESTILOS CSS (Dark Theme) --- */
+        /* --- ESTILOS CSS (Dark Theme 2.0) --- */
         :root {
-            --bg-dark: #121212;
-            --bg-panel: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --accent: #bb86fc;
-            --accent-hover: #9965f4;
-            --success: #03dac6;
+            --bg-dark: #0f172a;
+            /* Azul muy oscuro estilo editor de código */
+            --bg-panel: #1e293b;
+            --bg-card: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            /* Azul claro / Cyan */
+            --accent-hover: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
@@ -32,22 +36,27 @@
             overflow: hidden;
         }
 
-        /* Sidebar de Navegación */
+        /* Sidebar */
         .sidebar {
-            width: 300px;
+            width: 280px;
             background-color: var(--bg-panel);
             padding: 25px 20px;
-            border-right: 1px solid #333;
+            border-right: 1px solid #334155;
             display: flex;
             flex-direction: column;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
 
         .sidebar h2 {
             color: var(--accent);
             margin-bottom: 30px;
             text-align: center;
-            font-size: 24px;
-            letter-spacing: 1px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .sidebar ul {
@@ -55,36 +64,38 @@
         }
 
         .sidebar li {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .nav-btn {
             width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            background: transparent;
             border: 1px solid transparent;
-            color: var(--text-main);
+            color: var(--text-muted);
             text-align: left;
             font-size: 15px;
             cursor: pointer;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .nav-btn:hover {
-            background-color: rgba(187, 134, 252, 0.1);
-            border-color: rgba(187, 134, 252, 0.3);
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--text-main);
         }
 
         .nav-btn.active {
-            background-color: rgba(187, 134, 252, 0.2);
+            background-color: rgba(56, 189, 248, 0.15);
             color: var(--accent);
             border-left: 4px solid var(--accent);
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        /* Contenido Principal */
+        /* Contenido */
         .content {
             flex: 1;
             padding: 40px 60px;
@@ -95,7 +106,7 @@
         .view {
             display: none;
             animation: fadeIn 0.4s ease;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -104,65 +115,98 @@
         }
 
         h1 {
-            margin-bottom: 10px;
             color: var(--text-main);
             font-size: 32px;
+            margin-bottom: 5px;
         }
 
         .subtitle {
             color: var(--text-muted);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #333;
+            border-bottom: 2px solid var(--bg-card);
             font-size: 16px;
         }
 
-        /* Tarjetas de Apuntes */
+        /* Tarjetas / Secciones */
         .card {
             background-color: var(--bg-panel);
             padding: 25px;
             border-radius: 12px;
             margin-bottom: 25px;
-            border-left: 5px solid var(--accent);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
+            border: 1px solid var(--bg-card);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .card h3 {
-            margin-bottom: 15px;
             color: var(--accent);
             font-size: 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .card p {
-            line-height: 1.7;
-            color: #ccc;
-            font-size: 16px;
+        /* Estilos de Tablas (NUEVO) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            background-color: var(--bg-dark);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .card strong {
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-card);
+        }
+
+        th {
+            background-color: var(--bg-card);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        td {
+            color: #cbd5e1;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Resaltados bilingües y de código */
+        .eng {
             color: var(--success);
+            font-weight: 500;
         }
 
-        .card em {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
+        .spa {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 14px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
             padding: 2px 6px;
             border-radius: 4px;
-            font-style: normal;
+            color: #fca5a5;
+            font-family: monospace;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(10px);
             }
 
             to {
@@ -171,9 +215,9 @@
             }
         }
 
-        /* Scrollbar personalizado */
+        /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
@@ -181,8 +225,8 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #444;
-            border-radius: 5px;
+            background: var(--bg-card);
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -194,177 +238,328 @@
 <body>
 
     <nav class="sidebar">
-        <h2>📚 English Hub</h2>
+        <h2>🚀 Eng-Hub 2.0</h2>
         <ul>
             <li><button class="nav-btn active" data-target="home">🏠 Inicio</button></li>
-            <li><button class="nav-btn" data-target="mod1">📘 Mod 1: Fundamentos</button></li>
-            <li><button class="nav-btn" data-target="mod2">🟢 Mod 2: Presente y Futuro</button></li>
-            <li><button class="nav-btn" data-target="mod3">🟠 Mod 3: Pasado y Exp.</button></li>
-            <li><button class="nav-btn" data-target="mod4">🟣 Mod 4: Funciones</button></li>
+            <li><button class="nav-btn" data-target="mod1">📦 Mod 1: Fundamentos</button></li>
+            <li><button class="nav-btn" data-target="mod2">⚡ Mod 2: Presente/Futuro</button></li>
+            <li><button class="nav-btn" data-target="mod3">🕰️ Mod 3: Pasado y Exp.</button></li>
+            <li><button class="nav-btn" data-target="mod4">🛠️ Mod 4: Funciones</button></li>
         </ul>
     </nav>
 
     <main class="content">
 
         <section id="home" class="view active">
-            <h1>👋 Bienvenido a tu English Hub</h1>
-            <p class="subtitle">Plataforma de estudio interactiva.</p>
-            <div class="card" style="border-left-color: var(--success);">
-                <h3>🚀 ¿Cómo usar esta guía?</h3>
-                <p>Navega por el menú lateral para acceder a los 23 temas gramaticales que seleccionaste, organizados de
-                    forma lógica. Los ejemplos están adaptados a tu entorno tecnológico y de desarrollo de software para
-                    que te sea más fácil asimilarlos.</p>
+            <h1>👋 Welcome to your English Hub!</h1>
+            <p class="subtitle">Manual Visual de Gramática - Edición Desarrollador</p>
+            <div class="card" style="border-left: 4px solid var(--success);">
+                <h3>💡 ¿Cómo estudiar aquí?</h3>
+                <p style="color: #cbd5e1; line-height: 1.6;">
+                    Este manual está diseñado con <strong>ejemplos bilingües</strong>. El texto en verde es la
+                    estructura en inglés, seguido de su traducción al español para que tu cerebro haga la conexión
+                    rápida. <br><br>
+                    Usa el menú lateral para navegar por los 4 módulos principales.
+                </p>
             </div>
         </section>
 
         <section id="mod1" class="view">
-            <h1>📘 Módulo 1: Fundamentos</h1>
-            <p class="subtitle">Pronombres, artículos, sustantivos y cuantificadores.</p>
+            <h1>📦 Módulo 1: Fundamentos</h1>
+            <p class="subtitle">Sujetos, Posesiones, Artículos y Cantidades.</p>
 
             <div class="card">
-                <h3>1.1 Subject/Object Pronouns & Possessives</h3>
-                <p><strong>Subject (Sujeto):</strong> <em>I</em> code the app. <em>They</em> test the software.<br>
-                    <strong>Object (Objeto):</strong> The client pays <em>me</em>. I send the file to <em>them</em>.<br>
-                    <strong>Possessive Adjective:</strong> This is <em>my</em> Lenovo laptop.<br>
-                    <strong>Possessive Noun ('s):</strong> It is <em>Alexander's</em> project.
-                </p>
+                <h3>👥 1.1 Pronombres y Posesivos</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Ejemplo Inglés ↔️ Español</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Subject</strong> (Sujeto)<br><small>Hace la acción</small></td>
+                        <td><span class="eng">I code daily.</span><span class="spa">Yo programo a diario.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Object</strong> (Objeto)<br><small>Recibe la acción</small></td>
+                        <td><span class="eng">The client pays me.</span><span class="spa">El cliente me paga.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Possessive Adjective</strong><br><small>Va antes de la cosa</small></td>
+                        <td><span class="eng">Where is my laptop?</span><span class="spa">¿Dónde está mi laptop?</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Possessive Noun ('s)</strong><br><small>Añade 's al dueño</small></td>
+                        <td><span class="eng">Alexander's code is clean.</span><span class="spa">El código de Alexander
+                                es limpio.</span></td>
+                    </tr>
+                </table>
             </div>
 
             <div class="card">
-                <h3>1.2 Demonstratives & Articles</h3>
-                <p><strong>Cerca:</strong> <em>This</em> pixel art is cool (este) / <em>These</em> designs are new
-                    (estos).<br>
-                    <strong>Lejos:</strong> <em>That</em> server is down (ese) / <em>Those</em> bugs are annoying
-                    (esos).<br>
-                    <strong>A/An:</strong> <em>A</em> database (sonido consonante) / <em>An</em> API (sonido vocal).
-                </p>
+                <h3>🎯 1.2 Demostrativos y Artículos</h3>
+                <table>
+                    <tr>
+                        <th>Distancia</th>
+                        <th>Demostrativo (This/That)</th>
+                        <th>Artículos (A/An)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Cerca</strong></td>
+                        <td><span class="eng">This pixel art is great.</span><span class="spa">Este pixel art es
+                                genial.</span><span class="eng">These files are new.</span><span class="spa">Estos
+                                archivos son nuevos.</span></td>
+                        <td><strong>A</strong> (Sonido Consonante)<br><span class="eng">A database. / A project.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lejos</strong></td>
+                        <td><span class="eng">That server is offline.</span><span class="spa">Ese servidor está
+                                desconectado.</span><span class="eng">Those bugs are old.</span><span class="spa">Esos
+                                bugs son viejos.</span></td>
+                        <td><strong>An</strong> (Sonido Vocal)<br><span class="eng">An API. / An error.</span></td>
+                    </tr>
+                </table>
             </div>
 
             <div class="card">
-                <h3>1.3 Plurals, Countables & Quantifiers</h3>
-                <p><strong>Plurals:</strong> Generalmente +s (apps). Irregulares: man/men, data (es plural de
-                    datum).<br>
-                    <strong>Contables:</strong> servers, computers. Usan <em>many</em> (muchos), <em>a few</em> (unos
-                    pocos).<br>
-                    <strong>Incontables:</strong> software, information, time. Usan <em>much</em> (mucho), <em>a
-                        little</em> (un poco).<br>
-                    <strong>Some/Any:</strong> I have <em>some</em> ideas (+) / Do you have <em>any</em> questions? (?)
-                </p>
+                <h3>📊 1.3 Plurales y Cuantificadores</h3>
+                <p style="color:#cbd5e1; margin-bottom: 10px;"><strong>Contables:</strong> Se cuentan (apps, servers).
+                    <strong>Incontables:</strong> No se cuentan (software, information).</p>
+                <table>
+                    <tr>
+                        <th>Cuantificador</th>
+                        <th>Uso Key</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Some</strong></td>
+                        <td>Afirmativas (+)</td>
+                        <td><span class="eng">I have some new designs.</span><span class="spa">Tengo algunos diseños
+                                nuevos.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Any</strong></td>
+                        <td>Negativas (-) / Preguntas (?)</td>
+                        <td><span class="eng">Do you have any bugs?</span><span class="spa">¿Tienes algún bug?</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>A lot of</strong></td>
+                        <td>Grandes cantidades</td>
+                        <td><span class="eng">We receive a lot of updates.</span><span class="spa">Recibimos muchas
+                                actualizaciones.</span></td>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section id="mod2" class="view">
-            <h1>🟢 Módulo 2: Presente y Futuro</h1>
-            <p class="subtitle">To be, rutinas, acciones continuas y planes.</p>
+            <h1>⚡ Módulo 2: Presente y Futuro</h1>
+            <p class="subtitle">Estado actual, rutinas continuas y planes de desarrollo.</p>
 
             <div class="card">
-                <h3>2.1 Verb To Be & There is/are</h3>
-                <p><strong>To Be (Ser/Estar):</strong> I <em>am</em> an IT student. The database <em>is</em> ready. We
-                    <em>are</em> developers.<br>
-                    <strong>There is (Hay singular):</strong> <em>There is</em> a bug in the code.<br>
-                    <strong>There are (Hay plural):</strong> <em>There are</em> five people in the team: Diaz, Jarodn,
-                    Flota, Villanueva, and Cordova.
-                </p>
+                <h3>📌 2.1 To Be & There is/are (Ser, Estar, Existir)</h3>
+                <table>
+                    <tr>
+                        <th>Estructura</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Verb To Be</strong></td>
+                        <td><span class="eng">I am an IT student. The database is ready.</span><span class="spa">Soy
+                                estudiante de TI. La base de datos está lista.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>There is</strong> (Hay 1)</td>
+                        <td><span class="eng">There is a bug in the script.</span><span class="spa">Hay un error en el
+                                script.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>There are</strong> (Hay +2)</td>
+                        <td><span class="eng">There are five people in the team.</span><span class="spa">Hay cinco
+                                personas en el equipo.</span></td>
+                    </tr>
+                </table>
             </div>
 
             <div class="card">
-                <h3>2.2 Simple Present & Frequency Adverbs</h3>
-                <p><strong>Simple Present:</strong> The script <em>runs</em> every morning. I <em>code</em> in Python.
-                    (Agrega -s/-es con He/She/It).<br>
-                    <strong>Frequency Adverbs:</strong> Van antes del verbo principal. We <em>always</em> test the app.
-                    I <em>sometimes</em> study integral calculus.
-                </p>
+                <h3>🔄 2.2 Simple Present & Rutinas</h3>
+                <p style="color:#cbd5e1; margin-bottom:10px;">Para rutinas. Recuerda agregar <code>-s</code> o
+                    <code>-es</code> si el sujeto es He/She/It.</p>
+                <table>
+                    <tr>
+                        <th>Frecuencia</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Always / Often</strong><br>(Siempre / A menudo)</td>
+                        <td><span class="eng">The script runs automatically. We always test the app.</span><span
+                                class="spa">El script corre automáticamente. Siempre probamos la app.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sometimes / Never</strong><br>(A veces / Nunca)</td>
+                        <td><span class="eng">I sometimes study integral calculus.</span><span class="spa">A veces
+                                estudio cálculo integral.</span></td>
+                    </tr>
+                </table>
             </div>
 
             <div class="card">
-                <h3>2.3 Present Continuous & Activities with ING</h3>
-                <p><strong>Present Continuous:</strong> Acciones que ocurren ahora (To be + verbo-ing). We <em>are
-                        developing</em> the RuralDrive app right now.<br>
-                    <strong>Activities:</strong> Cuando la actividad es el sujeto de la oración. <em>Programming</em> is
-                    fascinating. I enjoy <em>designing</em> video games.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>2.4 Future Forms</h3>
-                <p><strong>Will (Decisión rápida / Predicción):</strong> Don't worry, I <em>will fix</em> the server
-                    tomorrow.<br>
-                    <strong>Be going to (Plan con intención):</strong> I <em>am going to</em> build a news API for
-                    Mexico.<br>
-                    <strong>Present Continuous (Plan fijo agendado):</strong> We <em>are launching</em> Mandadito next
-                    month.
-                </p>
+                <h3>🚀 2.3 Progreso Ahora y El Futuro</h3>
+                <table>
+                    <tr>
+                        <th>Tiempo Verbal</th>
+                        <th>Situación</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Present Continuous</strong><br>(To be + ING)</td>
+                        <td>Acción sucediendo AHORA.</td>
+                        <td><span class="eng">We are developing the RuralDrive app right now.</span><span
+                                class="spa">Estamos desarrollando la app RuralDrive ahora mismo.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Be going to</strong></td>
+                        <td>Plan con intención sólida.</td>
+                        <td><span class="eng">I am going to build a news API.</span><span class="spa">Voy a construir
+                                una API de noticias.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Will</strong></td>
+                        <td>Decisión rápida / Promesa.</td>
+                        <td><span class="eng">Don't worry, I will fix the server.</span><span class="spa">No te
+                                preocupes, yo arreglaré el servidor.</span></td>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section id="mod3" class="view">
-            <h1>🟠 Módulo 3: Pasado y Experiencias</h1>
-            <p class="subtitle">Pasado simple, continuo y presente perfecto.</p>
+            <h1>🕰️ Módulo 3: Pasado y Experiencias</h1>
+            <p class="subtitle">Historias de código, proyectos terminados y experiencias.</p>
 
             <div class="card">
-                <h3>3.1 Past Simple & Used to</h3>
-                <p><strong>Pasado Simple (Acción terminada):</strong> We <em>worked</em> hard yesterday (Regular +ed). I
-                    <em>wrote</em> the documentation (Irregular).<br>
-                    <strong>Used to (Hábitos pasados):</strong> I <em>used to</em> play old games, now I develop Defensa
-                    del Muro.
-                </p>
+                <h3>⏪ 3.1 Past Simple & Pasado Continuo</h3>
+                <table>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Past Simple</strong><br>(Terminado: +ed o Irregular)</td>
+                        <td><span class="eng">I wrote the code and saved the file.</span><span class="spa">Escribí el
+                                código y guardé el archivo.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Used to</strong><br>(Hábitos pasados que ya no haces)</td>
+                        <td><span class="eng">I used to play games, now I design them.</span><span class="spa">Solía
+                                jugar juegos, ahora los diseño.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Past Continuous</strong><br>(was/were + ING)</td>
+                        <td><span class="eng">I was designing a 2D medieval game when the laptop crashed.</span><span
+                                class="spa">Estaba diseñando un juego 2D medieval cuando la laptop se colgó.</span></td>
+                    </tr>
+                </table>
             </div>
 
             <div class="card">
-                <h3>3.2 Past Continuous & VS Past Simple</h3>
-                <p><strong>While (Acciones paralelas):</strong> I was coding <em>while</em> Diaz was testing.<br>
-                    <strong>When (Interrupción):</strong> I <em>was designing</em> a 2D game <em>when</em> the computer
-                    crashed.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>3.3 Present Perfect & Time Expressions</h3>
-                <p><strong>Estructura:</strong> Have/Has + Participio pasado. Indica experiencia.<br>
-                    <strong>Since / For:</strong> I have studied IT <em>since</em> 2023. We have worked <em>for</em>
-                    three hours.<br>
-                    <strong>Already / Just:</strong> I have <em>already</em> finished. I have <em>just</em> compiled the
-                    code.<br>
-                    <strong>Yet:</strong> (Negativas/Preguntas) I haven't pushed the changes <em>yet</em>.<br>
-                    <strong>How long / Ever / Never:</strong> <em>How long</em> have you been a programmer? Have you
-                    <em>ever</em> failed a test? I have <em>never</em> lost data.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>3.4 Present Perfect VS Past Simple</h3>
-                <p><strong>Past Simple (Sabes CUÁNDO):</strong> I finished the Homún local guides project <em>in
-                        January</em>.<br>
-                    <strong>Present Perfect (Importa la EXPERIENCIA):</strong> I <em>have developed</em> several mobile
-                    apps.
-                </p>
+                <h3>🏆 3.2 Present Perfect (Experiencias de Vida)</h3>
+                <p style="color:#cbd5e1; margin-bottom:10px;">Usa <code>Have/Has + Participio Pasado</code> para
+                    experiencias donde el tiempo exacto no importa, o acciones que siguen hasta hoy.</p>
+                <table>
+                    <tr>
+                        <th>Palabra Clave</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Since / For</strong><br>(Desde / Por)</td>
+                        <td><span class="eng">We have worked with Diaz and Jarodn for months.</span><span
+                                class="spa">Hemos trabajado con Diaz y Jarodn por meses.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Already / Just</strong><br>(Ya / Acabo de)</td>
+                        <td><span class="eng">I have already finished. I have just compiled it.</span><span
+                                class="spa">Ya he terminado. Acabo de compilarlo.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yet</strong><br>(Aún no / ¿Ya?)</td>
+                        <td><span class="eng">I haven't pushed the commit yet.</span><span class="spa">Aún no he subido
+                                el commit.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ever / Never</strong></td>
+                        <td><span class="eng">Have you ever failed? I have never lost data.</span><span
+                                class="spa">¿Alguna vez has fallado? Nunca he perdido datos.</span></td>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section id="mod4" class="view">
-            <h1>🟣 Módulo 4: Funciones y Comparaciones</h1>
-            <p class="subtitle">Verbos modales, comparativos y superlativos.</p>
+            <h1>🛠️ Módulo 4: Funciones y Comparaciones</h1>
+            <p class="subtitle">Verbos modales para dar opiniones, y comparativos.</p>
 
             <div class="card">
-                <h3>4.1 Modal Verbs</h3>
-                <p><strong>Can / Could (Habilidad):</strong> I <em>can</em> speak English. I <em>couldn't</em> sleep
-                    yesterday.<br>
-                    <strong>Should (Consejo):</strong> You <em>should</em> document your code.<br>
-                    <strong>Must (Obligación):</strong> We <em>must</em> deliver the project by Friday.<br>
-                    <strong>Might / May (Posibilidad):</strong> The client <em>might</em> ask for changes.<br>
-                    <strong>Would (Condicional):</strong> I <em>would</em> like to learn machine learning and AI.
-                </p>
+                <h3>🚦 4.1 Modal Verbs</h3>
+                <p style="color:#cbd5e1; margin-bottom:10px;">Regla de oro: No cambian (no llevan 's') y el siguiente
+                    verbo va en su forma base (sin 'to').</p>
+                <table>
+                    <tr>
+                        <th>Modal</th>
+                        <th>Función</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Can / Could</strong></td>
+                        <td>Habilidad</td>
+                        <td><span class="eng">I can create pixel art.</span><span class="spa">Puedo crear arte
+                                pixelado.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Should</strong></td>
+                        <td>Consejo</td>
+                        <td><span class="eng">You should document your code.</span><span class="spa">Deberías documentar
+                                tu código.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Must</strong></td>
+                        <td>Obligación Fuerte</td>
+                        <td><span class="eng">We must deliver the Mandadito app by Friday.</span><span
+                                class="spa">Debemos entregar la app Mandadito el viernes.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Might / May</strong></td>
+                        <td>Posibilidad</td>
+                        <td><span class="eng">The client might ask for UI changes.</span><span class="spa">El cliente
+                                podría pedir cambios de interfaz.</span></td>
+                    </tr>
+                </table>
             </div>
 
             <div class="card">
-                <h3>4.2 Comparatives and Superlatives</h3>
-                <p><strong>Comparatives (A vs B):</strong><br>
-                    Cortos (+er): This laptop is <em>faster than</em> the old one.<br>
-                    Largos (more): This algorithm is <em>more efficient than</em> the previous one.<br><br>
-                    <strong>Superlatives (El Top 1 de un grupo):</strong><br>
-                    Cortos (the +est): This is <em>the fastest</em> processor.<br>
-                    Largos (the most): It is <em>the most important</em> feature of the app.
-                </p>
+                <h3>⚖️ 4.2 Comparativos y Superlativos</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Regla Visual</th>
+                        <th>Ejemplo Bilingüe</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Comparatives</strong><br>(A vs B)</td>
+                        <td>Adjetivo corto: <code>+er than</code><br>Adjetivo largo: <code>more + adj</code></td>
+                        <td><span class="eng">The Lenovo LOQ is faster than my old PC.</span><span class="spa">La Lenovo
+                                LOQ es más rápida que mi PC vieja.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Superlatives</strong><br>(El Top 1)</td>
+                        <td>Adjetivo corto: <code>the +est</code><br>Adjetivo largo: <code>the most + adj</code></td>
+                        <td><span class="eng">This is the most efficient algorithm.</span><span class="spa">Este es el
+                                algoritmo más eficiente.</span></td>
+                    </tr>
+                </table>
             </div>
         </section>
 
@@ -377,18 +572,16 @@
 
             navButtons.forEach(button => {
                 button.addEventListener("click", () => {
-                    // Quitar active de todos los botones y ocultar vistas
+                    // Quitar active de botones y vistas
                     navButtons.forEach(btn => btn.classList.remove("active"));
                     views.forEach(view => view.classList.remove("active"));
 
-                    // Activar el botón clickeado
+                    // Activar selección
                     button.classList.add("active");
-
-                    // Mostrar la vista objetivo
                     const targetId = button.getAttribute("data-target");
                     document.getElementById(targetId).classList.add("active");
 
-                    // Pequeño scroll suave hacia arriba al cambiar de pestaña
+                    // Volver arriba de la página suavemente
                     document.querySelector('.content').scrollTo(0, 0);
                 });
             });
