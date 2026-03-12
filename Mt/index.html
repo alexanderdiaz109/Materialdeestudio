@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Hub</title>
+    <style>
+        /* --- ESTILOS CSS (Dark Theme) --- */
+        :root {
+            --bg-dark: #121212;
+            --bg-panel: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent: #bb86fc;
+            --accent-hover: #9965f4;
+            --success: #03dac6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+
+        /* Sidebar de Navegación */
+        .sidebar {
+            width: 300px;
+            background-color: var(--bg-panel);
+            padding: 25px 20px;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            color: var(--accent);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 12px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            color: var(--text-main);
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(187, 134, 252, 0.1);
+            border-color: rgba(187, 134, 252, 0.3);
+        }
+
+        .nav-btn.active {
+            background-color: rgba(187, 134, 252, 0.2);
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            font-weight: bold;
+        }
+
+        /* Contenido Principal */
+        .content {
+            flex: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.4s ease;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+            font-size: 16px;
+        }
+
+        /* Tarjetas de Apuntes */
+        .card {
+            background-color: var(--bg-panel);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .card strong {
+            color: var(--success);
+        }
+
+        .card em {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-style: normal;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="sidebar">
+        <h2>📚 English Hub</h2>
+        <ul>
+            <li><button class="nav-btn active" data-target="home">🏠 Inicio</button></li>
+            <li><button class="nav-btn" data-target="mod1">📘 Mod 1: Fundamentos</button></li>
+            <li><button class="nav-btn" data-target="mod2">🟢 Mod 2: Presente y Futuro</button></li>
+            <li><button class="nav-btn" data-target="mod3">🟠 Mod 3: Pasado y Exp.</button></li>
+            <li><button class="nav-btn" data-target="mod4">🟣 Mod 4: Funciones</button></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+
+        <section id="home" class="view active">
+            <h1>👋 Bienvenido a tu English Hub</h1>
+            <p class="subtitle">Plataforma de estudio interactiva.</p>
+            <div class="card" style="border-left-color: var(--success);">
+                <h3>🚀 ¿Cómo usar esta guía?</h3>
+                <p>Navega por el menú lateral para acceder a los 23 temas gramaticales que seleccionaste, organizados de
+                    forma lógica. Los ejemplos están adaptados a tu entorno tecnológico y de desarrollo de software para
+                    que te sea más fácil asimilarlos.</p>
+            </div>
+        </section>
+
+        <section id="mod1" class="view">
+            <h1>📘 Módulo 1: Fundamentos</h1>
+            <p class="subtitle">Pronombres, artículos, sustantivos y cuantificadores.</p>
+
+            <div class="card">
+                <h3>1.1 Subject/Object Pronouns & Possessives</h3>
+                <p><strong>Subject (Sujeto):</strong> <em>I</em> code the app. <em>They</em> test the software.<br>
+                    <strong>Object (Objeto):</strong> The client pays <em>me</em>. I send the file to <em>them</em>.<br>
+                    <strong>Possessive Adjective:</strong> This is <em>my</em> Lenovo laptop.<br>
+                    <strong>Possessive Noun ('s):</strong> It is <em>Alexander's</em> project.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>1.2 Demonstratives & Articles</h3>
+                <p><strong>Cerca:</strong> <em>This</em> pixel art is cool (este) / <em>These</em> designs are new
+                    (estos).<br>
+                    <strong>Lejos:</strong> <em>That</em> server is down (ese) / <em>Those</em> bugs are annoying
+                    (esos).<br>
+                    <strong>A/An:</strong> <em>A</em> database (sonido consonante) / <em>An</em> API (sonido vocal).
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>1.3 Plurals, Countables & Quantifiers</h3>
+                <p><strong>Plurals:</strong> Generalmente +s (apps). Irregulares: man/men, data (es plural de
+                    datum).<br>
+                    <strong>Contables:</strong> servers, computers. Usan <em>many</em> (muchos), <em>a few</em> (unos
+                    pocos).<br>
+                    <strong>Incontables:</strong> software, information, time. Usan <em>much</em> (mucho), <em>a
+                        little</em> (un poco).<br>
+                    <strong>Some/Any:</strong> I have <em>some</em> ideas (+) / Do you have <em>any</em> questions? (?)
+                </p>
+            </div>
+        </section>
+
+        <section id="mod2" class="view">
+            <h1>🟢 Módulo 2: Presente y Futuro</h1>
+            <p class="subtitle">To be, rutinas, acciones continuas y planes.</p>
+
+            <div class="card">
+                <h3>2.1 Verb To Be & There is/are</h3>
+                <p><strong>To Be (Ser/Estar):</strong> I <em>am</em> an IT student. The database <em>is</em> ready. We
+                    <em>are</em> developers.<br>
+                    <strong>There is (Hay singular):</strong> <em>There is</em> a bug in the code.<br>
+                    <strong>There are (Hay plural):</strong> <em>There are</em> five people in the team: Diaz, Jarodn,
+                    Flota, Villanueva, and Cordova.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>2.2 Simple Present & Frequency Adverbs</h3>
+                <p><strong>Simple Present:</strong> The script <em>runs</em> every morning. I <em>code</em> in Python.
+                    (Agrega -s/-es con He/She/It).<br>
+                    <strong>Frequency Adverbs:</strong> Van antes del verbo principal. We <em>always</em> test the app.
+                    I <em>sometimes</em> study integral calculus.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>2.3 Present Continuous & Activities with ING</h3>
+                <p><strong>Present Continuous:</strong> Acciones que ocurren ahora (To be + verbo-ing). We <em>are
+                        developing</em> the RuralDrive app right now.<br>
+                    <strong>Activities:</strong> Cuando la actividad es el sujeto de la oración. <em>Programming</em> is
+                    fascinating. I enjoy <em>designing</em> video games.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>2.4 Future Forms</h3>
+                <p><strong>Will (Decisión rápida / Predicción):</strong> Don't worry, I <em>will fix</em> the server
+                    tomorrow.<br>
+                    <strong>Be going to (Plan con intención):</strong> I <em>am going to</em> build a news API for
+                    Mexico.<br>
+                    <strong>Present Continuous (Plan fijo agendado):</strong> We <em>are launching</em> Mandadito next
+                    month.
+                </p>
+            </div>
+        </section>
+
+        <section id="mod3" class="view">
+            <h1>🟠 Módulo 3: Pasado y Experiencias</h1>
+            <p class="subtitle">Pasado simple, continuo y presente perfecto.</p>
+
+            <div class="card">
+                <h3>3.1 Past Simple & Used to</h3>
+                <p><strong>Pasado Simple (Acción terminada):</strong> We <em>worked</em> hard yesterday (Regular +ed). I
+                    <em>wrote</em> the documentation (Irregular).<br>
+                    <strong>Used to (Hábitos pasados):</strong> I <em>used to</em> play old games, now I develop Defensa
+                    del Muro.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>3.2 Past Continuous & VS Past Simple</h3>
+                <p><strong>While (Acciones paralelas):</strong> I was coding <em>while</em> Diaz was testing.<br>
+                    <strong>When (Interrupción):</strong> I <em>was designing</em> a 2D game <em>when</em> the computer
+                    crashed.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>3.3 Present Perfect & Time Expressions</h3>
+                <p><strong>Estructura:</strong> Have/Has + Participio pasado. Indica experiencia.<br>
+                    <strong>Since / For:</strong> I have studied IT <em>since</em> 2023. We have worked <em>for</em>
+                    three hours.<br>
+                    <strong>Already / Just:</strong> I have <em>already</em> finished. I have <em>just</em> compiled the
+                    code.<br>
+                    <strong>Yet:</strong> (Negativas/Preguntas) I haven't pushed the changes <em>yet</em>.<br>
+                    <strong>How long / Ever / Never:</strong> <em>How long</em> have you been a programmer? Have you
+                    <em>ever</em> failed a test? I have <em>never</em> lost data.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>3.4 Present Perfect VS Past Simple</h3>
+                <p><strong>Past Simple (Sabes CUÁNDO):</strong> I finished the Homún local guides project <em>in
+                        January</em>.<br>
+                    <strong>Present Perfect (Importa la EXPERIENCIA):</strong> I <em>have developed</em> several mobile
+                    apps.
+                </p>
+            </div>
+        </section>
+
+        <section id="mod4" class="view">
+            <h1>🟣 Módulo 4: Funciones y Comparaciones</h1>
+            <p class="subtitle">Verbos modales, comparativos y superlativos.</p>
+
+            <div class="card">
+                <h3>4.1 Modal Verbs</h3>
+                <p><strong>Can / Could (Habilidad):</strong> I <em>can</em> speak English. I <em>couldn't</em> sleep
+                    yesterday.<br>
+                    <strong>Should (Consejo):</strong> You <em>should</em> document your code.<br>
+                    <strong>Must (Obligación):</strong> We <em>must</em> deliver the project by Friday.<br>
+                    <strong>Might / May (Posibilidad):</strong> The client <em>might</em> ask for changes.<br>
+                    <strong>Would (Condicional):</strong> I <em>would</em> like to learn machine learning and AI.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>4.2 Comparatives and Superlatives</h3>
+                <p><strong>Comparatives (A vs B):</strong><br>
+                    Cortos (+er): This laptop is <em>faster than</em> the old one.<br>
+                    Largos (more): This algorithm is <em>more efficient than</em> the previous one.<br><br>
+                    <strong>Superlatives (El Top 1 de un grupo):</strong><br>
+                    Cortos (the +est): This is <em>the fastest</em> processor.<br>
+                    Largos (the most): It is <em>the most important</em> feature of the app.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navButtons = document.querySelectorAll(".nav-btn");
+            const views = document.querySelectorAll(".view");
+
+            navButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    // Quitar active de todos los botones y ocultar vistas
+                    navButtons.forEach(btn => btn.classList.remove("active"));
+                    views.forEach(view => view.classList.remove("active"));
+
+                    // Activar el botón clickeado
+                    button.classList.add("active");
+
+                    // Mostrar la vista objetivo
+                    const targetId = button.getAttribute("data-target");
+                    document.getElementById(targetId).classList.add("active");
+
+                    // Pequeño scroll suave hacia arriba al cambiar de pestaña
+                    document.querySelector('.content').scrollTo(0, 0);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
